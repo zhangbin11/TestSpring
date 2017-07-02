@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+       <bean id="duke" class="prs.test.Juggler">
+              <constructor-arg value="15"  />
+       </bean>
+
+       <bean id="auditorium" class="prs.test.Auditorium"  init-method="turnOnTheLight" destroy-method="turnOffTheLight"/>
+
+       <bean id="saxphone" class="prs.test.Saxphone"></bean>
+
+       <bean id="kenny" class="prs.test.Instrumentalist">
+              <property name="is" ref="saxphone"></property>
+              <property name="song" value="huiajia"></property>
+       </bean>
+
+       <bean id="audience" class="prs.aop.Audience"></bean>
+
+       <aop:config>
+              <aop:aspect ref="audience">
+
+                     <aop:pointcut id="performance" expression="execution(* prs.it.Performer.perform(..) )"></aop:pointcut>
+
+                     <aop:before pointcut="execution(* prs.it.Performer.perform(..) )" method="takeSeats"></aop:before>
+
+                     <aop:before method="turnOffCellPhones" pointcut="execution(* prs.it.Performer.perform())"></aop:before>
+
+                     <aop:after-returning method="aplaud" pointcut-ref="performance"></aop:after-returning>
+
+                     <aop:after-throwing method="demandRefund" pointcut="execution(* prs.it.Performer.perform())"></aop:after-throwing>
+              </aop:aspect>
+       </aop:config>
+
+</beans>
