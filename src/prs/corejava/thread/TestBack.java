@@ -34,7 +34,7 @@ public class TestBack implements Runnable {
 
     public static void main(String[] args) {
         Bank b = new Bank();
-        for(int i=0;i<5;i++){
+        for(int i=0;i<10;i++){
             Thread t = new Thread(new TestBack(b, i, 100.00));
             t.setUncaughtExceptionHandler(new ThreadExceptionHandler());
             t.start();
