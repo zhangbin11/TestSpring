@@ -39,6 +39,10 @@ public class TraceInvoker implements InvocationHandler {
 
         Integer key = new Random().nextInt(elements.length)+1;
 
+//        Object i = elements[0];
+//        i.toString();
+
+
         int result = Arrays.binarySearch(elements,key);
 
         System.out.println(result);

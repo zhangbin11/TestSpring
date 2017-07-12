@@ -1,4 +1,4 @@
-package prs.concurrentinaction.c3;
+package prs.concurrent.c3;
 
 /**
  * Created by zhangbin on 2017/7/10.
