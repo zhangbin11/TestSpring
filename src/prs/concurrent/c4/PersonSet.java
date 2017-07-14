@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by zhangbin on 2017/7/12.
  *
- * 通过实力封闭 来保证线程的安全
+ * 通过实例封闭 来保证线程的安全
  * 将hashset封装到自己的类中 保证多线程操作的安全
  */
 public class PersonSet {
