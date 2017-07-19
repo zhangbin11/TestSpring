@@ -10,9 +10,9 @@ import prs.it.Performer;
 public class TestJuggler {
 
     public static void  main(String[] args){
-//        ApplicationContext ac = new ClassPathXmlApplicationContext("spring-config.xml");
-//        Performer pf = (Performer) ac.getBean("duke");
-//        pf.perform();
-        System.out.print(System.currentTimeMillis());
+        ApplicationContext ac = new ClassPathXmlApplicationContext("spring-config.xml");
+        Performer pf = (Performer) ac.getBean("duke");
+        pf.perform();
+//        System.out.print(System.currentTimeMillis());
     }
 }

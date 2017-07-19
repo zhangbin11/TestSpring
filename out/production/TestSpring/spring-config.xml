@@ -32,5 +32,14 @@
                      <aop:after-throwing method="demandRefund" pointcut="execution(* prs.it.Performer.perform())"></aop:after-throwing>
               </aop:aspect>
        </aop:config>
+       
+       <bean id="juggler2" class="prs.model.Juggler2"></bean>
+       
+       <aop:config>
+      		<aop:aspect ref="audience">
+      			<aop:pointcut expression="execution(* prs.it.Performer2.perform(..)) " id="performance2"/>
+      			<aop:around method="watchPerformance" pointcut-ref="performance2"/>
+      		</aop:aspect>
+       </aop:config>
 
 </beans>
