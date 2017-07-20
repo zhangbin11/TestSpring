@@ -41,5 +41,25 @@
       			<aop:around method="watchPerformance" pointcut-ref="performance2"/>
       		</aop:aspect>
        </aop:config>
+       
+       <bean id="magician" class="prs.model.Magician"></bean>
+       <bean id="volunteer" class="prs.model.Volunteer"></bean>
+       <aop:config>
+       	<aop:aspect ref="magician">
+       		<aop:pointcut expression="execution(* prs.it.Thinker.thinkOfSomeThing( java.lang.String)) and args(thoughts)" id="think"/>
+       		<aop:before method="interceptThoughts( java.lang.String) and args(thoughts)" pointcut-ref="think"/>
+       	</aop:aspect>
+       </aop:config>
+       
+       <bean id="eimpl" class="prs.model.ExpandPerformerImpl"></bean>
+       
+       <aop:config>
+       	<aop:aspect>
+       		<aop:declare-parents types-matching="prs.it.Performer+" 
+       		implement-interface="prs.it.ExpandPerformer"
+       		default-impl="prs.model.ExpandPerformerImpl"/>
+       	</aop:aspect>
+       </aop:config>
+       
 
 </beans>
