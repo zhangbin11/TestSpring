@@ -21,6 +21,8 @@
       <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/aopalliance-1.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/aspectjweaver.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-dbcp-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/hsqldb-1.8.0.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
