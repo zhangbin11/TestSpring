@@ -1,6 +1,6 @@
 package prs.corejava.rmi;
 
-import com.sun.xml.internal.rngom.nc.NameClass;
+//import com.sun.xml.internal.rngom.nc.NameClass;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd 
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+        
+      
+		<context:component-scan base-package="prs.c5"></context:component-scan>
+		<context:annotation-config></context:annotation-config>  
+		 
+       <bean id="duke" class="prs.test.Juggler">
+              <constructor-arg value="15"  />
+       </bean>
+
+       <bean id="auditorium" class="prs.test.Auditorium"  init-method="turnOnTheLight" destroy-method="turnOffTheLight"/>
+
+       <bean id="saxphone" class="prs.test.Saxphone"></bean>
+
+       <bean id="kenny" class="prs.test.Instrumentalist">
+              <property name="is" ref="saxphone"></property>
+              <property name="song" value="huiajia"></property>
+       </bean>
+
+       <bean id="audience" class="prs.aop.Audience"></bean>
+
+       <aop:config>
+              <aop:aspect ref="audience">
+
+                     <aop:pointcut id="performance" expression="execution(* prs.it.Performer.perform(..) )"></aop:pointcut>
+
+                     <aop:before pointcut="execution(* prs.it.Performer.perform(..) )" method="takeSeats"></aop:before>
+
+                     <aop:before method="turnOffCellPhones" pointcut="execution(* prs.it.Performer.perform())"></aop:before>
+
+                     <aop:after-returning method="aplaud" pointcut-ref="performance"></aop:after-returning>
+
+                     <aop:after-throwing method="demandRefund" pointcut="execution(* prs.it.Performer.perform())"></aop:after-throwing>
+              </aop:aspect>
+       </aop:config>
+       
+       <bean id="juggler2" class="prs.model.Juggler2"></bean>
+       
+       <aop:config>
+      		<aop:aspect ref="audience">
+      			<aop:pointcut expression="execution(* prs.it.Performer2.perform(..)) " id="performance2"/>
+      			<aop:around method="watchPerformance" pointcut-ref="performance2"/>
+      		</aop:aspect>
+       </aop:config>
+       
+       <bean id="magician" class="prs.model.Magician"></bean>
+       <bean id="volunteer" class="prs.model.Volunteer"></bean>
+       <aop:config>
+       	<aop:aspect ref="magician">
+       		<aop:pointcut expression="execution(* prs.it.Thinker.thinkOfSomeThing( java.lang.String)) and args(thoughts)" id="think"/>
+       		<aop:before method="interceptThoughts( java.lang.String) and args(thoughts)" pointcut-ref="think"/>
+       	</aop:aspect>
+       </aop:config>
+       
+       <bean id="eimpl" class="prs.model.ExpandPerformerImpl"></bean>
+       
+       <aop:config>
+       	<aop:aspect>
+       		<aop:declare-parents types-matching="prs.it.Performer+" 
+       		implement-interface="prs.it.ExpandPerformer"
+       		default-impl="prs.model.ExpandPerformerImpl"/>
+       	</aop:aspect>
+       </aop:config>
+       
+		<bean id="dataSourcePool" class="org.apache.commons.dbcp.BasicDataSource" >
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+			<property name="url" value="jdbc:mysql://localhost:33066/testspring"></property>
+			<property name="username" value="root"></property>
+			<property name="password" value="1234"></property>
+			<property name="initialSize" value="5"></property>
+			<property name="maxActive" value="10"></property>
+		</bean>
+		
+		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://localhost:3306/testspring"></property>
+			<property name="username" value="root"></property>
+			<property name="password" value="1234"></property>
+		</bean>
+		
+		
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+        	<property name="dataSource" ref="dataSource"></property>  
+        </bean>
+
+		
+</beans>
