@@ -14,4 +14,9 @@ public class TestController {
 		System.out.println("???");
 		return "hello world";
 	}
+	
+	@RequestMapping("/hellohtml")
+	public String hello2() {
+		return "hello";
+	}
 }
